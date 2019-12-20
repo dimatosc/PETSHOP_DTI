@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 ///----------------------------------------------------------
 /// Declaração de todas variaveis e structs
 ///----------------------------------------------------------
@@ -10,7 +9,6 @@ char data[10];
 int dia = 0;
 int mes = 0;
 int ano = 0;
-int i;
 int validacao = 0;
 int dia_semana;
 int qt_pequenos;
@@ -34,11 +32,11 @@ TCanil Canis[3]; // declaração da struct Canis do tipo Tcanil
 int main()
 {
     init_structs();
-    printf("\n\t\t\t\tBem vindo \n");
+    printf("\n\t\t\tBem vindo, Eduardo!\n");
 
     while(validacao == 0 )
     {
-        printf("\nDigite a data desejada para o banho(Formato: xx/xx/xxxx ):\t");
+        printf("\nDigite a data desejada para o banho(Formato: xx/xx/xxxx ):  ");
         scanf("%i/%i/%i", &dia, &mes, &ano); //armazena data inserida pelo usuario "/" é um delimitador
         validacao = valida_data(dia, mes, ano); //chamada para validar data inserida
     }
@@ -54,7 +52,8 @@ int main()
 
     teste_valores();
 
-    printf("\nPetshop com melhor preco para a data:\t%s\n\n", Canis[teste].nome);
+    printf("\nPetshop com melhor preco para a data:\t%s", Canis[teste].nome);
+    printf("\nValor total dos banhos: \t\tRS: %.02f\n\n", Canis[teste].valor_total);
 
     system("\npause");
     return 0;
@@ -139,6 +138,7 @@ void init_structs()// Inicialização das struct's e população das mesmas
 ///-------------------------------------------------------------------
 void calc_preco()
 {
+int i;
     for(i=0; i<3; i++)
     {
         if(dia_semana)
@@ -167,6 +167,7 @@ void calc_preco()
 ///---------------------------------------------------------------------
 void teste_valores() // Determinar menor custo, desempate por menor distancia
 {
+int i;
 int menor = Canis[0].valor_total;//primeira referencia para teste
     teste = 0;
     for(i=0; i<3; i++)
