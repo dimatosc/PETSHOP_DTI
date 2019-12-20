@@ -15,6 +15,7 @@ int validacao = 0;
 int dia_semana;
 int qt_pequenos;
 int qt_grandes;
+int teste;
 
 typedef struct // definição do tipo struct
 {
@@ -33,27 +34,33 @@ TCanil Canis[3]; // declaração da struct Canis do tipo Tcanil
 int main()
 {
     init_structs();
+    printf("\n\t\t\t\tBem vindo \n");
 
     while(validacao == 0 )
     {
-    printf("\nDigite a data desejada para o banho:(Formato: xx/xx/xxxx )\n");
-    scanf("%i/%i/%i", &dia, &mes, &ano); //armazena data inserida pelo usuario "/" é um delimitador
-    validacao = valida_data(dia, mes, ano); //chamada para validar data inserida
+        printf("\nDigite a data desejada para o banho(Formato: xx/xx/xxxx ):\t");
+        scanf("%i/%i/%i", &dia, &mes, &ano); //armazena data inserida pelo usuario "/" é um delimitador
+        validacao = valida_data(dia, mes, ano); //chamada para validar data inserida
     }
-    dia_semana = calc_data(dia, mes, ano);//chamada para verificar se é dia de semana ou nao
-    printf("Digite a quantidade de Dog's pequenos: ");
-    scanf("%i", &qt_pequenos);
-    printf("Digite a quantidade de Dog's grandes: ");
-    scanf("%i", &qt_grandes);
-    calc_preco();//chamada para calcular os valores por petshop
-    printf("\nValor Total %s: RS %.02f", Canis[0].nome, Canis[0].valor_total);
-    printf("\nValor Total %s: RS %.02f", Canis[1].nome, Canis[1].valor_total);
-    printf("\nValor Total %s: RS %.02f\n", Canis[2].nome, Canis[2].valor_total);
 
-    system("pause");
+    dia_semana = calc_data(dia, mes, ano);//chamada para verificar se é dia de semana ou nao
+
+    printf("\nDigite a quantidade de Dog's pequenos:\t");
+    scanf("%i", &qt_pequenos);
+    printf("\nDigite a quantidade de Dog's grandes:\t");
+    scanf("%i", &qt_grandes);
+
+    calc_preco();//chamada para calcular os valores por petshop
+
+    teste_valores();
+
+    printf("\nPetshop com melhor preco para a data:\t%s\n\n", Canis[teste].nome);
+
+    system("\npause");
     return 0;
 }
-
+///-------------------------------------------------------------------------------
+/// declaraçao das funçoes utilizadas no codigo
 ///-------------------------------------------------------------------------------
 int valida_data(int dia, int mes, int ano)
     {
@@ -77,13 +84,13 @@ int valida_data(int dia, int mes, int ano)
             }
             else
             {
-                printf("\ndata invalida\n");
+                printf("\nData invalida!\n");
                 return 0;
             }
       }
        else
            {
-                printf("\ndata invalida\n");
+                printf("\nData invalida!\n");
                 return 0;
            }
 }
@@ -143,13 +150,40 @@ void calc_preco()
             switch(i) //calcula o valor no final de semana de acordo com cada regra de negocio
             {
             case 0:
-                Canis[i].valor_total = ((Canis[i].pequeno * qt_pequenos) + (Canis[i].grande * qt_grandes)) *1.2;
+                Canis[i].valor_total = (Canis[i].pequeno*1.2 * qt_pequenos) + (Canis[i].grande*1.2 * qt_grandes);
+                break;
             case 1:
                 Canis[i].valor_total = ((Canis[i].pequeno + 5) * qt_pequenos) + ((Canis[i].grande + 5) * qt_grandes);
+                break;
             case 2:
                 Canis[i].valor_total = (Canis[i].pequeno * qt_pequenos) + (Canis[i].grande * qt_grandes);
+                break;
             }
 
         }
+    }
+}
+
+///---------------------------------------------------------------------
+void teste_valores() // Determinar menor custo, desempate por menor distancia
+{
+int menor = Canis[0].valor_total;//primeira referencia para teste
+    teste = 0;
+    for(i=0; i<3; i++)
+    {
+         if(menor >= Canis[i].valor_total); // pode ser menor ou igual
+         {
+             if(menor > Canis[i].valor_total)
+             {
+                menor = Canis[i].valor_total;
+                teste = i;
+             }else if(menor == Canis[i].valor_total) // se não é menor, logo é igual, entao teste da distancia
+             {
+                 if(Canis[i].distancia < Canis[teste].distancia)//desempate por distancia
+                 {
+                     teste = i;
+                 }
+             }
+         }
     }
 }
