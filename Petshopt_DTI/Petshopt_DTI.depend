@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1576879766 source:c:\users\matheus de matos\desktop\teste_dti\petshopt_dti\main.c
+	<stdio.h>
+	<stdlib.h>
+
