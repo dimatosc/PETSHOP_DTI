@@ -1,11 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 ///----------------------------------------------------------
 /// Declaração de todas variaveis e structs
 ///----------------------------------------------------------
-char data[10];
+
 int dia = 0;
 int mes = 0;
 int ano = 0;
@@ -21,8 +20,6 @@ typedef struct // definição do tipo struct
     float distancia;
     float pequeno;
     float grande;
-    float pequeno_fds;
-    float grande_fds;
     float valor_total;
 }TCanil;
 
@@ -36,16 +33,16 @@ int main()
 
     while(validacao == 0 )
     {
-        printf("\nDigite a data desejada para o banho(Formato: xx/xx/xxxx ):  ");
+        printf("\nDigite a data desejada para o banho(Formato: xx/xx/xxxx ), e pressione ENTER:  ");
         scanf("%i/%i/%i", &dia, &mes, &ano); //armazena data inserida pelo usuario "/" é um delimitador
         validacao = valida_data(dia, mes, ano); //chamada para validar data inserida
     }
 
     dia_semana = calc_data(dia, mes, ano);//chamada para verificar se é dia de semana ou nao
 
-    printf("\nDigite a quantidade de Dog's pequenos:\t");
+    printf("\nDigite a quantidade de Dog's pequenos, e pressione ENTER:\t");
     scanf("%i", &qt_pequenos);
-    printf("\nDigite a quantidade de Dog's grandes:\t");
+    printf("\nDigite a quantidade de Dog's grandes, e pressione ENTER:\t");
     scanf("%i", &qt_grandes);
 
     calc_preco();//chamada para calcular os valores por petshop
@@ -59,11 +56,11 @@ int main()
     return 0;
 }
 ///-------------------------------------------------------------------------------
-/// declaraçao das funçoes utilizadas no codigo
+/// Declaraçao das funçoes utilizadas no codigo
 ///-------------------------------------------------------------------------------
 int valida_data(int dia, int mes, int ano)
     {
-    if ((dia >= 1 && dia <= 31) && (mes >= 1 && mes <= 12) && (ano >= 1900 && ano <= 2200)) //cheaca se os numeros sao validos
+        if ((dia >= 1 && dia <= 31) && (mes >= 1 && mes <= 12) && (ano >= 1900 && ano <= 2200)) //cheaca se os numeros sao validos
         {
             if ((dia == 29 && mes == 2) && ((ano % 4) == 0)) //checa se o ano e bissexto
             {
@@ -86,8 +83,7 @@ int valida_data(int dia, int mes, int ano)
                 printf("\nData invalida!\n");
                 return 0;
             }
-      }
-       else
+      }else
            {
                 printf("\nData invalida!\n");
                 return 0;
