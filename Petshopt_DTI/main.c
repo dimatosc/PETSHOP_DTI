@@ -5,6 +5,8 @@
 /// Declaração de todas variaveis e structs
 ///----------------------------------------------------------
 
+char data[10];
+int data_conv[10];
 int dia = 0;
 int mes = 0;
 int ano = 0;
@@ -34,8 +36,11 @@ int main()
     while(validacao == 0 )
     {
         printf("\nDigite a data desejada para o banho(Formato: xx/xx/xxxx ), e pressione ENTER:  ");
-        scanf("%i/%i/%i", &dia, &mes, &ano); //armazena data inserida pelo usuario "/" é um delimitador
-        validacao = valida_data(dia, mes, ano); //chamada para validar data inserida
+        gets(data); //armazena data inserida pelo usuario "/" é um delimitador
+        if(teste_entrada(data))
+        {
+            validacao = valida_data(dia, mes, ano); //chamada para validar data inserida
+        }
     }
 
     dia_semana = calc_data(dia, mes, ano);//chamada para verificar se é dia de semana ou nao
@@ -183,4 +188,27 @@ int menor = Canis[0].valor_total;//primeira referencia para teste
              }
          }
     }
+}
+
+///------------------------------------------------------------------------
+void teste_entrada(char data[10]) //verificaçao dos parametros de entrada e conversao para decimal
+{
+    for(int i=0;i<10;i++)
+    {
+        if((data[i] >= '0' && data[i] <= '9') || (data[i] == '/'))
+        {
+            data_conv[i] = data[i] - '0';
+        }else
+        {
+            return 0;
+        }
+    }
+    for(int i=0;i<10;i++)
+    {
+        data_conv[i] = data[i] - '0';
+    }
+    dia = data_conv[0]*10 + + data_conv[1];
+    mes = data_conv[3]*10 + + data_conv[4];
+    ano = data_conv[6]*1000 + data_conv[7]*100 + + data_conv[8]*10 + data_conv[9];
+    return 1;
 }
